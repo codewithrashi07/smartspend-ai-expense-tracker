@@ -1,4 +1,5 @@
 import { Transaction, Budget, AIInsight, FinancialHealthMetric } from '../types';
+import { formatINR } from './formatters';
 
 // Intelligent category keyword dictionary
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
@@ -212,7 +213,7 @@ export function generateAIInsights(
       id: 'sub-audit',
       type: 'opportunity',
       title: 'Subscription Audit Opportunity',
-      description: `You are spending $${totalSubSpend.toFixed(2)} on ${subscriptions.length} recurring subscriptions this month. Reviewing unused services could free up capital immediately.`,
+      description: `You are spending ${formatINR(totalSubSpend)} on ${subscriptions.length} recurring subscriptions this month. Reviewing unused services could free up capital immediately.`,
       potentialSavings: Math.round(totalSubSpend * 0.35),
       category: 'Entertainment & Subscriptions',
       actionableStep: 'Audit active digital memberships and cancel at least one unused recurring plan.',
@@ -232,7 +233,7 @@ export function generateAIInsights(
         id: `budget-over-${b.id}`,
         type: 'alert',
         title: `Overbudget Alert: ${b.category}`,
-        description: `You have spent $${spent.toFixed(2)} which exceeds your $${b.monthly_limit.toFixed(2)} budget limit by ${( (ratio - 1) * 100).toFixed(0)}%.`,
+        description: `You have spent ${formatINR(spent)} which exceeds your ${formatINR(b.monthly_limit)} budget limit by ${( (ratio - 1) * 100).toFixed(0)}%.`,
         potentialSavings: Math.round(spent - b.monthly_limit),
         category: b.category,
         actionableStep: `Pause discretionary transactions in ${b.category} until next month.`,
@@ -243,7 +244,7 @@ export function generateAIInsights(
         id: `budget-warn-${b.id}`,
         type: 'alert',
         title: `Nearing Limit: ${b.category}`,
-        description: `You've utilized ${(ratio * 100).toFixed(0)}% of your $${b.monthly_limit.toFixed(2)} monthly budget for ${b.category}. Only $${(b.monthly_limit - spent).toFixed(2)} remains.`,
+        description: `You've utilized ${(ratio * 100).toFixed(0)}% of your ${formatINR(b.monthly_limit)} monthly budget for ${b.category}. Only ${formatINR(b.monthly_limit - spent)} remains.`,
         category: b.category,
         actionableStep: 'Consider slowing down purchases in this category for the remaining days.',
         date: new Date().toISOString()
@@ -261,10 +262,10 @@ export function generateAIInsights(
       id: 'dining-insight',
       type: 'tip',
       title: 'Dining & Delivery Optimization',
-      description: `Dining out accounts for $${diningSpent.toFixed(2)} this month. Preparing meals at home 2 extra nights a week could save around $120/month.`,
+      description: `Dining out accounts for ${formatINR(diningSpent)} this month. Preparing meals at home 2 extra nights a week could save around ₹120/month.`,
       potentialSavings: 120,
       category: 'Food & Dining',
-      actionableStep: 'Meal prep for Monday through Wednesday to easily pocket $30–$40 each week.',
+      actionableStep: 'Meal prep for Monday through Wednesday to easily pocket ₹30–₹40 each week.',
       date: new Date().toISOString()
     });
   }
@@ -282,7 +283,7 @@ export function generateAIInsights(
       id: 'savings-boost',
       type: 'achievement',
       title: 'Positive Cash Flow Milestone',
-      description: `You have maintained a surplus of $${netSaved.toFixed(2)} this month! Directing this toward a high-yield emergency fund or ETF accelerates financial freedom.`,
+      description: `You have maintained a surplus of ${formatINR(netSaved)} this month! Directing this toward a high-yield emergency fund or ETF accelerates financial freedom.`,
       potentialSavings: Math.round(netSaved),
       category: 'Investments & Savings',
       actionableStep: 'Transfer 50% of this month’s surplus to your primary savings goal today.',

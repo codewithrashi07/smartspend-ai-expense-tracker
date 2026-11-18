@@ -9,6 +9,7 @@ import {
   CartesianGrid 
 } from 'recharts';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR, formatINRAxis } from '../../lib/formatters';
 
 export const CashflowChart: React.FC = () => {
   const { transactions } = useFinance();
@@ -64,11 +65,11 @@ export const CashflowChart: React.FC = () => {
           <p className="font-bold text-slate-200">{label}</p>
           <div className="flex items-center space-x-2 text-emerald-400">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>Income: ${payload[0]?.value?.toLocaleString()}</span>
+            <span>Income: {formatINR(payload[0]?.value, false)}</span>
           </div>
           <div className="flex items-center space-x-2 text-rose-400">
             <span className="w-2 h-2 rounded-full bg-rose-400" />
-            <span>Expense: ${payload[1]?.value?.toLocaleString()}</span>
+            <span>Expense: {formatINR(payload[1]?.value, false)}</span>
           </div>
         </div>
       );
@@ -127,7 +128,7 @@ export const CashflowChart: React.FC = () => {
               stroke="#64748B" 
               fontSize={11}
               tickLine={false}
-              tickFormatter={(v) => `$${v >= 1000 ? `${(v/1000).toFixed(1)}k` : v}`}
+              tickFormatter={(v) => formatINRAxis(v)}
             />
             <Tooltip content={<CustomTooltip />} />
             <Area 

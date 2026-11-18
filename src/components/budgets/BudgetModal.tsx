@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, PieChart, DollarSign, Tag } from 'lucide-react';
+import { X, PieChart, IndianRupee, Tag } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
 
 interface BudgetModalProps {
@@ -86,9 +86,9 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Limit ($ USD)</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Limit (₹ INR)</label>
             <div className="relative">
-              <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="number"
                 step="1"

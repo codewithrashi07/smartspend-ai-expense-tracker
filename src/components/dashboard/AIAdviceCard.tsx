@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, ArrowRight, TrendingDown, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 interface AIAdviceCardProps {
   onNavigateToInsights: () => void;
@@ -53,7 +54,7 @@ export const AIAdviceCard: React.FC<AIAdviceCardProps> = ({ onNavigateToInsights
               </span>
               {topInsight.potentialSavings && (
                 <span className="text-[10px] font-semibold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  Save ~${topInsight.potentialSavings}/mo
+                  Save ~{formatINR(topInsight.potentialSavings, false)}/mo
                 </span>
               )}
             </div>

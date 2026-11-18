@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Sparkles, Plus, Check, Calendar, DollarSign, Tag, CreditCard, FileText } from 'lucide-react';
+import { X, Sparkles, Plus, Check, Calendar, IndianRupee, Tag, CreditCard, FileText } from 'lucide-react';
 import { Transaction, TransactionType, PaymentMethod } from '../../types';
 import { useFinance } from '../../context/FinanceContext';
 import { suggestCategoryAndType } from '../../lib/aiEngine';
@@ -220,9 +220,9 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           {/* Amount & Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5">Amount ($ USD)</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Amount (₹ INR)</label>
               <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="number"
                   step="0.01"

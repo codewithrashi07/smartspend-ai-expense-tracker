@@ -5,7 +5,7 @@ import {
   Key, 
   RefreshCw, 
   User, 
-  DollarSign, 
+  IndianRupee, 
   Sparkles, 
   Check, 
   Cpu 
@@ -18,7 +18,7 @@ export const SettingsView: React.FC = () => {
   const { user, profile, updateProfile, isDemoMode } = useAuth();
   const { refreshData } = useFinance();
 
-  const [currency, setCurrency] = useState(profile?.currency || 'USD');
+  const [currency, setCurrency] = useState(profile?.currency || 'INR');
   const [incomeTarget, setIncomeTarget] = useState(profile?.monthly_income_target || 5000);
   const [savingsTarget, setSavingsTarget] = useState(profile?.monthly_savings_target || 1500);
   const [customApiKey, setCustomApiKey] = useState(() => localStorage.getItem('smartspend_custom_ai_key') || '');
@@ -77,17 +77,17 @@ export const SettingsView: React.FC = () => {
               onChange={(e) => setCurrency(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
             >
+              <option value="INR">INR (₹ - Indian Rupee)</option>
               <option value="USD">USD ($ - US Dollar)</option>
               <option value="EUR">EUR (€ - Euro)</option>
               <option value="GBP">GBP (£ - British Pound)</option>
-              <option value="INR">INR (₹ - Indian Rupee)</option>
               <option value="CAD">CAD ($ - Canadian Dollar)</option>
               <option value="AUD">AUD ($ - Australian Dollar)</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Income Benchmark ($)</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Monthly Income Benchmark (₹)</label>
             <input
               type="number"
               value={incomeTarget}
@@ -97,7 +97,7 @@ export const SettingsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">Target Savings Goal ($)</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Target Savings Goal (₹)</label>
             <input
               type="number"
               value={savingsTarget}

@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const newProf: Partial<UserProfile> = {
           id: userId,
           email: email,
-          currency: 'USD',
+          currency: 'INR',
           monthly_income_target: 5000,
           monthly_savings_target: 1500
         };

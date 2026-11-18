@@ -18,10 +18,11 @@ import {
   Percent, 
   Award, 
   Plus, 
-  DollarSign 
+  IndianRupee 
 } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
 import { SavingsGoal } from '../../types';
+import { formatINR, formatINRAxis } from '../../lib/formatters';
 
 interface AnalyticsViewProps {
   onAddSavingsGoal: () => void;
@@ -139,7 +140,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ onAddSavingsGoal }
             <TrendingUp className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="text-3xl font-extrabold text-emerald-400">
-            ${totalIncome.toLocaleString()}
+            {formatINR(totalIncome, false)}
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
             Cumulative income recorded in SmartSpend ledger.
@@ -152,7 +153,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ onAddSavingsGoal }
             <TrendingDown className="w-4 h-4 text-rose-400" />
           </div>
           <div className="text-3xl font-extrabold text-rose-400">
-            ${totalExpense.toLocaleString()}
+            {formatINR(totalExpense, false)}
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
             Total expenses accounted for across all methods.
@@ -169,10 +170,10 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ onAddSavingsGoal }
             <BarChart data={comparisonData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
               <XAxis dataKey="label" stroke="#64748B" fontSize={11} tickLine={false} />
-              <YAxis stroke="#64748B" fontSize={11} tickLine={false} tickFormatter={(v) => `$${v}`} />
+              <YAxis stroke="#64748B" fontSize={11} tickLine={false} tickFormatter={(v) => formatINRAxis(v)} />
               <Tooltip 
                 contentStyle={{ backgroundColor: '#0B0F19', borderColor: '#334155', borderRadius: 12, fontSize: 12 }} 
-                formatter={(val: any) => [`$${val.toLocaleString()}`, '']}
+                formatter={(val: any) => [formatINR(val, false), '']}
               />
               <Legend wrapperStyle={{ fontSize: 12, paddingTop: 10 }} />
               <Bar dataKey="income" name="Income" fill="#10B981" radius={[4, 4, 0, 0]} />
@@ -221,8 +222,8 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ onAddSavingsGoal }
 
                 <div>
                   <div className="flex justify-between text-xs text-slate-300 mb-1">
-                    <span>${g.current_amount.toLocaleString()}</span>
-                    <span className="text-slate-400">Target: ${g.target_amount.toLocaleString()}</span>
+                    <span>{formatINR(g.current_amount, false)}</span>
+                    <span className="text-slate-400">Target: {formatINR(g.target_amount, false)}</span>
                   </div>
                   <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
                     <div
@@ -235,7 +236,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ onAddSavingsGoal }
                 <div className="flex items-center justify-between pt-1">
                   <button
                     onClick={() => {
-                      const deposit = prompt(`Deposit amount into ${g.name}:`, '100');
+                      const deposit = prompt(`Deposit amount into ${g.name} (₹):`, '1000');
                       if (deposit && !isNaN(Number(deposit))) {
                         updateSavingsGoal(g.id, { current_amount: g.current_amount + Number(deposit) });
                       }

@@ -7,6 +7,7 @@ import {
   Tooltip 
 } from 'recharts';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 const COLORS = [
   '#6366F1', // Indigo
@@ -58,7 +59,7 @@ export const CategoryBreakdown: React.FC = () => {
       return (
         <div className="bg-[#0B0F19] border border-slate-700 p-2.5 rounded-xl shadow-xl text-xs space-y-1">
           <p className="font-bold text-slate-100">{item.name}</p>
-          <p className="text-indigo-400 font-semibold">${item.value.toLocaleString()} ({item.percentage}%)</p>
+          <p className="text-indigo-400 font-semibold">{formatINR(item.value, false)} ({item.percentage}%)</p>
         </div>
       );
     }
@@ -73,7 +74,7 @@ export const CategoryBreakdown: React.FC = () => {
           <p className="text-xs text-slate-400">Expense distribution for {selectedMonth}</p>
         </div>
         <span className="text-xs font-semibold text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded-lg">
-          ${totalExpense.toLocaleString()}
+          {formatINR(totalExpense, false)}
         </span>
       </div>
 
@@ -115,7 +116,7 @@ export const CategoryBreakdown: React.FC = () => {
             </div>
             <div className="flex items-center space-x-2 shrink-0">
               <span className="text-slate-400">{item.percentage}%</span>
-              <span className="font-semibold text-white">${item.value.toLocaleString()}</span>
+              <span className="font-semibold text-white">{formatINR(item.value, false)}</span>
             </div>
           </div>
         ))}

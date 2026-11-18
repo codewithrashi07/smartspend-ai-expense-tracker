@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { Transaction, TransactionType } from '../../types';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 interface TransactionTableProps {
   onAddTransaction: () => void;
@@ -197,7 +198,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                         <span className={`font-bold tracking-tight text-sm ${
                           isIncome ? 'text-emerald-400' : 'text-slate-100'
                         }`}>
-                          {isIncome ? '+' : '-'}${Number(tx.amount).toFixed(2)}
+                          {isIncome ? '+' : '-'}{formatINR(Number(tx.amount))}
                         </span>
                       </td>
                       <td className="py-3.5 px-4 text-right">
@@ -230,10 +231,13 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
         <div className="p-4 bg-slate-900/60 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <span>Showing {filteredTransactions.length} of {transactions.length} records</span>
           <span className="font-medium text-slate-300">
-            Total Filtered: $
-            {filteredTransactions
-              .reduce((sum, t) => sum + (t.type === 'income' ? Number(t.amount) : -Number(t.amount)), 0)
-              .toFixed(2)}
+            Total Filtered:{' '}
+            {formatINR(
+              filteredTransactions.reduce(
+                (sum, t) => sum + (t.type === 'income' ? Number(t.amount) : -Number(t.amount)),
+                0
+              )
+            )}
           </span>
         </div>
       </div>

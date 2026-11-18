@@ -13,6 +13,7 @@ import {
   Layers
 } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 export const AIInsightsView: React.FC = () => {
   const { insights, healthMetric, transactions, selectedMonth } = useFinance();
@@ -24,7 +25,7 @@ export const AIInsightsView: React.FC = () => {
       `Financial Health Score: ${healthMetric.score}/100 (${healthMetric.label})`,
       `Savings Rate: ${healthMetric.savingsRate}%`,
       `Budget Adherence: ${healthMetric.budgetAdherence}%`,
-      `Daily Safe Spend: $${healthMetric.dailySafeSpend}`,
+      `Daily Safe Spend: ${formatINR(healthMetric.dailySafeSpend, false)}`,
       `Days Remaining in Month: ${healthMetric.daysRemainingInMonth}`,
       `Top Expense Category: ${healthMetric.topExpenseCategory}`,
       ``,
@@ -93,7 +94,7 @@ export const AIInsightsView: React.FC = () => {
             <Zap className="w-4 h-4 text-indigo-400" />
           </div>
           <div className="flex items-baseline space-x-2">
-            <span className="text-3xl font-extrabold text-indigo-400">${healthMetric.dailySafeSpend}</span>
+            <span className="text-3xl font-extrabold text-indigo-400">{formatINR(healthMetric.dailySafeSpend, false)}</span>
             <span className="text-xs text-slate-400">/ day</span>
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
@@ -167,7 +168,7 @@ export const AIInsightsView: React.FC = () => {
                   </div>
                   {item.potentialSavings && (
                     <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-                      +${item.potentialSavings}/mo
+                      +{formatINR(item.potentialSavings, false)}/mo
                     </span>
                   )}
                 </div>

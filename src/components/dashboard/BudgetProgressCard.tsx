@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertCircle, Plus, PieChart, ArrowUpRight } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 interface BudgetProgressCardProps {
   onManageBudgets: () => void;
@@ -87,9 +88,9 @@ export const BudgetProgressCard: React.FC<BudgetProgressCardProps> = ({
                   </span>
                   <div className="text-right">
                     <span className={`font-semibold ${b.isOver ? 'text-rose-400' : 'text-slate-200'}`}>
-                      ${b.spent.toLocaleString()}
+                      {formatINR(b.spent, false)}
                     </span>
-                    <span className="text-slate-400"> / ${b.monthly_limit.toLocaleString()}</span>
+                    <span className="text-slate-400"> / {formatINR(b.monthly_limit, false)}</span>
                   </div>
                 </div>
 
@@ -104,9 +105,9 @@ export const BudgetProgressCard: React.FC<BudgetProgressCardProps> = ({
                 <div className="flex justify-between text-[11px] text-slate-400">
                   <span>{b.percentage}% utilized</span>
                   {b.isOver ? (
-                    <span className="text-rose-400 font-semibold">Over by ${(b.spent - b.monthly_limit).toFixed(2)}</span>
+                    <span className="text-rose-400 font-semibold">Over by {formatINR(b.spent - b.monthly_limit)}</span>
                   ) : (
-                    <span>${(b.monthly_limit - b.spent).toFixed(2)} remaining</span>
+                    <span>{formatINR(b.monthly_limit - b.spent)} remaining</span>
                   )}
                 </div>
               </div>

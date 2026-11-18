@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 export type NavView = 'dashboard' | 'transactions' | 'budgets' | 'insights' | 'analytics' | 'settings';
 
@@ -159,7 +160,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             />
           </div>
           <p className="text-[10px] text-slate-400 mt-1.5">
-            Estimated Score • Safe daily: <span className="text-slate-200 font-semibold">${healthMetric.dailySafeSpend}</span>
+            Estimated Score • Safe daily: <span className="text-slate-200 font-semibold">{formatINR(healthMetric.dailySafeSpend, false)}</span>
           </p>
         </div>
 

@@ -10,6 +10,7 @@ import {
   ArrowDownRight
 } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 export const StatCards: React.FC = () => {
   const { transactions, healthMetric, selectedMonth } = useFinance();
@@ -51,7 +52,7 @@ export const StatCards: React.FC = () => {
         </div>
         <div className="flex items-baseline space-x-2">
           <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            ${totalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            {formatINR(totalBalance)}
           </span>
         </div>
         <div className="mt-3 flex items-center text-xs text-slate-400">
@@ -74,7 +75,7 @@ export const StatCards: React.FC = () => {
         </div>
         <div className="flex items-baseline space-x-2">
           <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">
-            +${totalIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            +{formatINR(totalIncome)}
           </span>
         </div>
         <div className="mt-3 flex items-center text-xs text-emerald-400/90">
@@ -95,7 +96,7 @@ export const StatCards: React.FC = () => {
         </div>
         <div className="flex items-baseline space-x-2">
           <span className="text-2xl sm:text-3xl font-extrabold text-rose-400 tracking-tight">
-            -${totalExpenses.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            -{formatINR(totalExpenses)}
           </span>
         </div>
         <div className="mt-3 flex items-center text-xs text-rose-400/90">
@@ -116,14 +117,14 @@ export const StatCards: React.FC = () => {
         </div>
         <div className="flex items-baseline space-x-2">
           <span className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${netMonthlySavings >= 0 ? 'text-white' : 'text-amber-400'}`}>
-            ${netMonthlySavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            {formatINR(netMonthlySavings)}
           </span>
           <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-full border border-purple-500/30">
             {savingsRate}%
           </span>
         </div>
         <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
-          <span>Safe Daily: <strong className="text-slate-200">${healthMetric.dailySafeSpend}</strong></span>
+          <span>Safe Daily: <strong className="text-slate-200">{formatINR(healthMetric.dailySafeSpend, false)}</strong></span>
           <span className="text-[11px] text-emerald-400 font-semibold">{healthMetric.daysRemainingInMonth}d left</span>
         </div>
       </div>

@@ -358,7 +358,7 @@ export const FinanceProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const exportTransactionsCSV = () => {
     if (transactions.length === 0) return;
 
-    const headers = ['Date', 'Title', 'Type', 'Category', 'Amount', 'Payment Method', 'Recurring', 'Notes'];
+    const headers = ['Date', 'Title', 'Type', 'Category', 'Amount (₹ INR)', 'Payment Method', 'Recurring', 'Notes'];
     const rows = transactions.map((t) => [
       t.date,
       `"${(t.title || '').replace(/"/g, '""')}"`,

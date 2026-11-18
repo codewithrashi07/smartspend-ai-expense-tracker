@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Transaction } from '../../types';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 interface RecentTransactionsProps {
   onViewAll: () => void;
@@ -104,7 +105,7 @@ export const RecentTransactions: React.FC<RecentTransactionsProps> = ({
                   <span className={`text-xs sm:text-sm font-bold tracking-tight ${
                     isIncome ? 'text-emerald-400' : 'text-slate-200'
                   }`}>
-                    {isIncome ? '+' : '-'}${Number(tx.amount).toFixed(2)}
+                    {isIncome ? '+' : '-'}{formatINR(Number(tx.amount))}
                   </span>
                   <div className="opacity-0 group-hover:opacity-100 flex items-center space-x-1 transition-opacity">
                     <button

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus, AlertTriangle, CheckCircle2, Trash2, PieChart, TrendingUp } from 'lucide-react';
 import { useFinance } from '../../context/FinanceContext';
+import { formatINR } from '../../lib/formatters';
 
 interface BudgetGridProps {
   onAddBudget: () => void;
@@ -43,7 +44,7 @@ export const BudgetGrid: React.FC<BudgetGridProps> = ({ onAddBudget }) => {
             Budget Health • {selectedMonth}
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-            ${totalSpentInBudgetedCategories.toLocaleString()} spent of ${totalBudgeted.toLocaleString()} limit
+            {formatINR(totalSpentInBudgetedCategories, false)} spent of {formatINR(totalBudgeted, false)} limit
           </h2>
           <p className="text-xs text-slate-400 mt-1">
             {budgets.length} category budgets actively monitored
@@ -129,10 +130,10 @@ export const BudgetGrid: React.FC<BudgetGridProps> = ({ onAddBudget }) => {
                 <div>
                   <div className="flex items-baseline justify-between mb-1.5">
                     <span className="text-xl font-extrabold text-white">
-                      ${b.spent.toLocaleString()}
+                      {formatINR(b.spent, false)}
                     </span>
                     <span className="text-xs text-slate-400">
-                      Cap: ${b.monthly_limit.toLocaleString()}
+                      Cap: {formatINR(b.monthly_limit, false)}
                     </span>
                   </div>
 
@@ -148,10 +149,10 @@ export const BudgetGrid: React.FC<BudgetGridProps> = ({ onAddBudget }) => {
                   <span>{b.percentage}% spent</span>
                   {b.isOver ? (
                     <span className="text-rose-400 font-semibold">
-                      Exceeded by ${(b.spent - b.monthly_limit).toFixed(2)}
+                      Exceeded by {formatINR(b.spent - b.monthly_limit)}
                     </span>
                   ) : (
-                    <span>${(b.monthly_limit - b.spent).toFixed(2)} available</span>
+                    <span>{formatINR(b.monthly_limit - b.spent)} available</span>
                   )}
                 </div>
               </div>
